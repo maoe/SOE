@@ -27,8 +27,10 @@ data Region = Shape Shape               -- ^ primitive shape
               deriving Show
 
 instance Monoid Region where
-  mempty  = Empty
-  mappend = Union
+  mempty                = Empty
+  x     `mappend` Empty = x
+  Empty `mappend` y     = y
+  x     `mappend` y     = x `Union` y
 
 infixr 5 `Union`
 infixr 6 `Intersect`
